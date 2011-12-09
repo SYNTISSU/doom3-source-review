@@ -43,12 +43,13 @@ static const char sixtet_to_base64[] =
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 //NEC idBase64::Encode = coverts a pointed to 'size' sized byte array that starts at '*from' to the private idBase64 variable pointer 'data' in a base 64 string sequence
+//NEC idBase64::Encode algorithm = 
 void idBase64::Encode( const byte *from, int size ) {
 	
 	//NEC i,j = indexes for the upcoming arrays
 	int i, j;
 	
-	//NEC? (what is w)
+	//NEC?
 	unsigned long w;
 	
 	//NEC *to = current pointer in idBase64 private variable 'data', used so position isn't lost and the length can be found after execution
@@ -60,7 +61,7 @@ void idBase64::Encode( const byte *from, int size ) {
 	//NEC set the local variable pointer '*to' to the idBase64 private variable 'data'
 	to = data;
 	
-	//NEC? (what is w)
+	//NEC set the conversion remainder to 0
 	w = 0;
 	
 	//NEC sets the first index 0
@@ -77,7 +78,7 @@ void idBase64::Encode( const byte *from, int size ) {
 		--size;
 		++i;
 		
-		
+		//NEC if the third iteration or the end of the loop iterating through the passed-by-reference variable '*from' is reached
 		if (size == 0 || i == 3) {
 			byte out[4];
 			
