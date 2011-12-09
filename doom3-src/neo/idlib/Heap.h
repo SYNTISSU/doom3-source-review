@@ -149,6 +149,9 @@
 //  ~~ Init
 //     Initialize the class.
 //
+//  ~~ Dump
+//     Stuff stuff stuff. Stuff stuff.
+//
 //  ~~ Msize
 //     Returns size of data block.
 //
@@ -167,9 +170,6 @@
 //  ~~ AllocDefragBlock
 //     Hack for huge renderbumps.
 //
-//  ~~ Dump
-//     Stuff stuff stuff. Stuff stuff.
-//
 //
 //
 //  PRIVATE FUNCTIONS
@@ -178,10 +178,6 @@
 //     ~ RETURN page_s*  Stuff stuff stuff. Stuff stuff.
 //     ~ dword bytes     Stuff stuff stuff. Stuff stuff.
 //     Allocate page from the OS.
-//
-//  ~~ FreePage
-//     ~ idHeap::page_s *p: Stuff stuff stuff. Stuff stuff.
-//     Free an OS allocated page.
 //
 //  ~~ SmallAllocate
 //     ~ RETURN void*  Stuff stuff stuff. Stuff stuff.
@@ -218,6 +214,10 @@
 //
 //  ~~ ReleaseSwappedPages
 //     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ FreePage
+//     ~ idHeap::page_s *p: Stuff stuff stuff. Stuff stuff.
+//     Free an OS allocated page.
 //
 //  ~~ FreePageReal
 //     ~ idHeap::page_s *p  Stuff stuff stuff. Stuff stuff.
@@ -312,16 +312,15 @@ class idHeap {
              idHeap                  (void);
             ~idHeap                  (void);
     void     Init                    (void);
+    void     Dump                    (void);
     dword    Msize                   (void *p);
     void     Free                    (void *p);
     void     Free16                  (void *p);
     void*    Allocate                (const dword bytes);
     void*    Allocate16              (const dword bytes);
     void     AllocDefragBlock        (void);
-    void     Dump                    (void);
   private:
     page_s*  AllocatePage            (dword bytes);
-    void     FreePage                (idHeap::page_s *p);
     void*    SmallAllocate           (dword bytes);
     void*    MediumAllocateFromPage  (idHeap::page_s *p, dword sizeNeeded);
     void*    MediumAllocate          (dword bytes);
@@ -330,6 +329,7 @@ class idHeap {
     void     MediumFree              (void *ptr);
     void     LargeFree               (void *ptr);
     void     ReleaseSwappedPages     (void);
+    void     FreePage                (idHeap::page_s *p);
     void     FreePageReal            (idHeap::page_s *p);
     enum{
       ALIGN = 8
