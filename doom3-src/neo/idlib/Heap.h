@@ -193,6 +193,12 @@
 //     ~ dword bytes
 //     Allocate memory (256-32768 bytes) from medium heap manager.
 //
+//  ~~ MediumAllocateFromPage
+//     ~ RETURN void*       Stuff stuff stuff. Stuff stuff.
+//     ~ idHeap::page_s *p  Stuff stuff stuff. Stuff stuff.
+//     ~ dword sizeNeeded   Stuff stuff stuff. Stuff stuff.
+//     Stuff stuff stuff. Stuff stuff.
+//
 //  ~~ LargeAllocate
 //     ~ RETURN void*  Stuff stuff stuff. Stuff stuff.
 //     ~ dword bytes   Stuff stuff stuff. Stuff stuff.
@@ -201,12 +207,6 @@
 //  ~~ SmallFree
 //     ~ void *ptr: Stuff stuff stuff. Stuff stuff.
 //     ~ Free memory allocated by small heap manager
-//
-//  ~~ MediumAllocateFromPage
-//     ~ RETURN void*       Stuff stuff stuff. Stuff stuff.
-//     ~ idHeap::page_s *p  Stuff stuff stuff. Stuff stuff.
-//     ~ dword sizeNeeded   Stuff stuff stuff. Stuff stuff.
-//     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ MediumFree
 //     ~ void *ptr: Stuff stuff stuff. Stuff stuff.
