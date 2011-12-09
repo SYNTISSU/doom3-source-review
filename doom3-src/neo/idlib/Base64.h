@@ -26,20 +26,17 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+//NEC. Base64.h contains the class idBase64 and any inline functions it has
 #ifndef __BASE64_H__
 #define __BASE64_H__
 
-/*
-===============================================================================
-
-	base64
-
-===============================================================================
-*/
-
+//NEC. idBase64 = a data type that stores a byte array into a *standardized* readable string form of a number in (radix-64) base64, base64 strings are regularly used to represent unicode characters, as a very simple form of encryption (like basic authentication over the Internet), and email attachments, however in this case they may just be for debugging memory or networking. *fun fact* base64 is one of the few data representation schemes that doesn't compress or encrypt data -- it only represents it in a different form
 class idBase64 {
 public:
+				//NEC run the idBase64 private function 'Init'
 				idBase64( void );
+
+				//NEC run the idBase64 private function 'Init' and then use the defined operator '=' to assign the current idBase64 object the the passed string
 				idBase64( const idStr &s );
 				~idBase64( void );
 
@@ -52,6 +49,7 @@ public:
 
 	const char	*c_str() const;
 
+	//NEC operator= = blindly copies any idStr to a idBase64 object (actually the private variable 'data'). the contents of the passed string 's' are not checked to see if they are base64
 	void 		operator=( const idStr &s );
 
 private:
@@ -64,12 +62,20 @@ private:
 	void		EnsureAlloced( int size );
 };
 
+//NEC run the idBase64 private function 'Init'
 ID_INLINE idBase64::idBase64( void ) {
+
+	//NEC run 'Init'
 	Init();
 }
 
+//NEC run the idBase64 private function 'Init' and then use the defined operator '=' to assign the current idBase64 object the the passed string
 ID_INLINE idBase64::idBase64( const idStr &s ) {
+
+	//NEC run 'Init'
 	Init();
+
+	//NEC use the defined operator '=' to assign the current idBase64 object the the passed string
 	*this = s;
 }
 
@@ -94,17 +100,31 @@ ID_INLINE void idBase64::Release( void ) {
 	Init();
 }
 
+//NEC idBase64::EnsureAlloced = used frequently to test the private idBase64 variable 'data' to see if it is a sufficent size. if it is not, the current data in 'data' is freed and new data exactly the size of 'size' is allocated and assigned to 'data'
 ID_INLINE void idBase64::EnsureAlloced( int size ) {
+
+	//NEC if the passed-by-value variable 'size' is larger than the amount allocated for private idBase64 variable 'data' (represented by the idBase64 private variable 'allocated') to use then it is freed
 	if ( size > alloced ) {
 		Release();
 	}
+
+	//NEC assign new data to idBase64 private variable 'data' exectly the size of the passed-by-value variable 'size'
 	data = new byte[size];
+
+	//NEC set the private idBase64 variable 'allocated' to reflect the new size of private idBase64 variable 'data'
 	alloced = size;
 }
 
+//NEC idBase64::operator= = blindly copies any idStr to a idBase64 object (actually the private variable 'data'). the contents of the passed string 's' are not checked to see if they are base64
 ID_INLINE void idBase64::operator=( const idStr &s ) {
+
+	//NEC check if the private idBase64 variable 'data' has enough space to store the base64 string passed-by-reference variable '&s' with the trailing null ternimator. If not enough space exists the data pointed by 'data' gets freed and reallocated so as to perfectly fit 's'
 	EnsureAlloced( s.Length()+1 ); // trailing \0 - beware, this does a Release
+
+	//NEC copies the passed-by-reference variable '&s' to the idBase64 private variable 'data', including the trailing '\0'
 	strcpy( (char *)data, s.c_str() );
+
+	//NEC sets the idBase64 private variable 'len'
 	len = s.Length();
 }
 
