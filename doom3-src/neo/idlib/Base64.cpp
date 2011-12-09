@@ -1,4 +1,3 @@
-
 #include "precompiled.h"
 #pragma hdrstop
 
@@ -38,30 +37,59 @@ POSSIBILITY OF SUCH DAMAGE.
 idBase64::Encode
 ============
 */
+
+//NEC sixtet_to_base64 = the string character values for the idBase64 class, as in 'A' is 0, '/' is 63 
 static const char sixtet_to_base64[] = 
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
+//NEC idBase64::Encode = coverts a pointed to 'size' sized byte array that starts at '*from' to the private idBase64 variable pointer 'data' in a base 64 string sequence
 void idBase64::Encode( const byte *from, int size ) {
+
+	//NEC i,j = indexes for the upcoming arrays
 	int i, j;
+
+	//NEC? (what is w)
 	unsigned long w;
+
+	//NEC *to = current pointer in idBase64 private variable 'data', used so position isn't lost and the length can be found after execution
 	byte *to;
-	
+
+	//NEC? (look over math) checks the idBase64 private variable 'data' for enough room to store the passed byte array '*from'. if there is not enough room within 'data' then the current allocated space in 'data' and it is reallocated exactly the size that the processed data will occupy
 	EnsureAlloced( 4*(size+3)/3 + 2 ); // ratio and padding + trailing \0
+
+	//NEC set the local variable pointer '*to' to the idBase64 private variable 'data'
 	to = data;
-	
+
+	//NEC? (what is w)
 	w = 0;
+
+	//NEC sets the first index 0
 	i = 0;
+
+	//NEC we use the local variable passed by value 'size' in a loop as a index to test the exit condition
 	while (size > 0) {
+
+		//NEC? (this will have to be looked over)
 		w |= *from << i*8;
+
+		//NEC? (why are the incremented with pre increment notation) 
 		++from;
 		--size;
 		++i;
+
+
 		if (size == 0 || i == 3) {
 			byte out[4];
+
+			//NEC? (only usage of local variable 'w')
 			SixtetsForInt( out, w );
+
+			//NEC? (time must have been spent compressing 10 lines into this) 
 			for (j = 0; j*6 < i*8; ++j) {
 				*to++ = sixtet_to_base64[ out[j] ];
 			}
+
+
 			if (size == 0) {
 				for (j = i; j < 3; ++j) {
 					*to++ = '=';
@@ -71,7 +99,7 @@ void idBase64::Encode( const byte *from, int size ) {
 			i = 0;
 		}
 	}
-	
+
 	*to++ = '\0';
 	len = to - data;
 }
@@ -99,7 +127,7 @@ int idBase64::Decode( byte *to ) const {
 	static char base64_to_sixtet[256];
 	static int tab_init = 0;
 	byte *from = data;
-	
+
 	if (!tab_init) {
 		memset( base64_to_sixtet, 0, 256 );
 		for (i = 0; (j = sixtet_to_base64[i]) != '\0'; ++i) {
