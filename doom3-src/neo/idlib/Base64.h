@@ -36,6 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===============================================================================
 */
+//NEC. idBase64 = a data type that stores a byte array into a *standardized* readable string form of a number in (radix-64) base64, base64 strings are regularly used to represent unicode characters, as a very simple form of encryption (like basic authentication over the Internet), and email attachments, however in this case they may just be for debugging memory or networking. *fun fact* base64 is one of the few data representation schemes that doesn't compress or encrypt data -- it only represents it in a different form
 
 class idBase64 {
 public:
