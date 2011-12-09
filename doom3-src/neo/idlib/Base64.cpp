@@ -55,7 +55,7 @@ void idBase64::Encode( const byte *from, int size ) {
 	//NEC *to = current pointer in idBase64 private variable 'data', used so position isn't lost and the length can be found after execution
 	byte *to;
 	
-	//NEC? (look over math) checks the idBase64 private variable 'data' for enough room to store the passed byte array '*from'. if there is not enough room within 'data' then the current allocated space in 'data' and it is reallocated exactly the size that the processed data will occupy
+	//NEC? (look over math) checks the idBase64 private variable 'data' for enough room to store the passed byte array '*from'. if there is not enough room within 'data' then the current allocated space in 'data' is freed and it is replaced with space reallocated exactly the size that the processed data will occupy
 	EnsureAlloced( 4*(size+3)/3 + 2 ); // ratio and padding + trailing \0
 	
 	//NEC set the local variable pointer '*to' to the idBase64 private variable 'data'
