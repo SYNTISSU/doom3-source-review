@@ -45,7 +45,7 @@
 //  Low-level system and rendering functions, precompiled so as to hide them from the SDK. Included for ___.
 //
 //  ~~ PRAGMA: hdrstop
-//     Signal the compiler to precompile all above text. In this case the header precompiled.h
+//     Signal the compiler to precompile all above operations. In this case, the header precompiled.h.
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
