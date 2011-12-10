@@ -131,11 +131,11 @@
 //  Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ ALIGN_SIZE
-//     ~~ bytes: Stuff stuff stuff. Stuff stuff.
-//     Stuff stuff stuff. Stuff stuff.
+//     ~~ bytes  The size in bytes to align to. This value is usually not passed or one of the idHeap header sizes.
+//     Used in networking functions (with no parameter) and within the body file for Heap.
 //
 //  ~~ SMALL_ALIGN
-//     ~~ bytes: Stuff stuff stuff. Stuff stuff.
+//     ~~ bytes  Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ MEDIUM_SMALLEST_SIZE
@@ -172,18 +172,24 @@
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ Msize
+//     ~~ RETURN dword  Stuff stuff stuff. Stuff stuff.
+//     ~~ void* p       Stuff stuff stuff. Stuff stuff.
 //     Returns size of data block.
 //
 //  ~~ Free
+//     ~~ void* p  Stuff stuff stuff. Stuff stuff.
 //     Frees memory.
 //
 //  ~~ Free16
+//     ~~ void* p  Stuff stuff stuff. Stuff stuff.
 //     Frees 16 byte aligned memory.
 //
 //  ~~ Allocate
+//     ~~ const dword bytes  Stuff stuff stuff. Stuff stuff.
 //     Allocate memory.
 //
 //  ~~ Allocate16
+//     ~~ const dword bytes  Stuff stuff stuff. Stuff stuff.
 //     Allocate 16 byte aligned memory.
 //
 //  ~~ AllocDefragBlock
@@ -210,7 +216,7 @@
 //
 //  ~~ MediumAllocateFromPage
 //     ~~ RETURN void*       Stuff stuff stuff. Stuff stuff.
-//     ~~ idHeap::page_s *p  Stuff stuff stuff. Stuff stuff.
+//     ~~ idHeap::page_s* p  Stuff stuff stuff. Stuff stuff.
 //     ~~ dword sizeNeeded   Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
@@ -220,26 +226,26 @@
 //     Allocate large block from OS directly
 //
 //  ~~ SmallFree
-//     ~~ void *ptr: Stuff stuff stuff. Stuff stuff.
+//     ~~ void* ptr: Stuff stuff stuff. Stuff stuff.
 //     ~~ Free memory allocated by small heap manager
 //
 //  ~~ MediumFree
-//     ~~ void *ptr: Stuff stuff stuff. Stuff stuff.
+//     ~~ void* ptr: Stuff stuff stuff. Stuff stuff.
 //     Free memory allocated by medium heap manager.
 //
 //  ~~ LargeFree
-//     ~~ void *ptr: Stuff stuff stuff. Stuff stuff.
+//     ~~ void* ptr: Stuff stuff stuff. Stuff stuff.
 //     Free memory allocated by large heap manager.
 //
 //  ~~ ReleaseSwappedPages
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ FreePage
-//     ~~ idHeap::page_s *p: Stuff stuff stuff. Stuff stuff.
+//     ~~ idHeap::page_s* p: Stuff stuff stuff. Stuff stuff.
 //     Free an OS allocated page.
 //
 //  ~~ FreePageReal
-//     ~~ idHeap::page_s *p  Stuff stuff stuff. Stuff stuff.
+//     ~~ idHeap::page_s* p  Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //
@@ -355,10 +361,10 @@ class idHeap {
       ALIGN = 8
     };
     enum{
-      INVALID_ALLOC  = 0xdd,
-      SMALL_ALLOC    = 0xaa,
-      MEDIUM_ALLOC   = 0xbb,
-      LARGE_ALLOC    = 0xcc
+      INVALID_ALLOC = 0xdd,
+      SMALL_ALLOC   = 0xaa,
+      MEDIUM_ALLOC  = 0xbb,
+      LARGE_ALLOC   = 0xcc
     };
     struct page_s{
       void*    data;
@@ -402,6 +408,18 @@ class idHeap {
 //
 //  Stuff stuff stuff. Stuff stuff
 //
+//  ~~ int num
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ int minSize
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ int maxSize
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ int totalSize
+//     Stuff stuff stuff. Stuff stuff.
+//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 typedef struct {
@@ -415,19 +433,54 @@ typedef struct {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//  FUNCTIONS: 
+//  FUNCTIONS: Heap Memory
+//
+//  These functions are low level memory allocation functions (above heap functions) that wrap the heap functions so as to simplify memory management.
+//
+//  ~~ Mem_Init
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ Mem_Shutdown
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ Mem_EnableLeakTest
+//     ~~ const char *name  Stuff stuff stuff. Stuff stuff.
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ Mem_ClearFrameStats
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ Mem_GetFrameStats
+//     ~~ memoryStats_t &allocs  Stuff stuff stuff. Stuff stuff.
+//     ~~ memoryStats_t &frees   Stuff stuff stuff. Stuff stuff.
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ Mem_GetStats
+//     ~~ memoryStats_t &stats  Stuff stuff stuff. Stuff stuff.
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ Mem_Dump_f
+//     ~~ const class idCmdArgs &args  Stuff stuff stuff. Stuff stuff.
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ Mem_DumpCompressed_f
+//     ~~ const class idCmdArgs &args  Stuff stuff stuff. Stuff stuff.
+//     Stuff stuff stuff. Stuff stuff.
+//
+//  ~~ Mem_AllocDefragBlock
+//     Stuff stuff stuff. Stuff stuff.
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//STOPED HERE 12-9-2011
-void    Mem_Init( void );
-void    Mem_Shutdown( void );
-void    Mem_EnableLeakTest( const char *name );
-void    Mem_ClearFrameStats( void );
-void    Mem_GetFrameStats( memoryStats_t &allocs, memoryStats_t &frees );
-void    Mem_GetStats( memoryStats_t &stats );
-void    Mem_Dump_f( const class idCmdArgs &args );
-void    Mem_DumpCompressed_f( const class idCmdArgs &args );
-void    Mem_AllocDefragBlock( void );
+
+void  Mem_Init              (void);
+void  Mem_Shutdown          (void);
+void  Mem_EnableLeakTest    (const char *name);
+void  Mem_ClearFrameStats   (void);
+void  Mem_GetFrameStats     (memoryStats_t &allocs, memoryStats_t &frees);
+void  Mem_GetStats          (memoryStats_t &stats);
+void  Mem_Dump_f            (const class idCmdArgs &args);
+void  Mem_DumpCompressed_f  (const class idCmdArgs &args);
+void  Mem_AllocDefragBlock  (void);
 
 
 #ifndef ID_DEBUG_MEMORY
