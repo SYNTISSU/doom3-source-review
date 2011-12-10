@@ -103,7 +103,7 @@
 //     The header size of a large allocation.
 //
 //  ~~ Example usage
-//     //Move back one byte from the void* to the data and switch based off of the identifier of the header
+//     //Move back one byte from the data and switch based off of the identifier of the header
 //     switch(((byte*)(Void_Pointer_To_Data))[-1]){
 //       case SMALL_ALLOC: {
 //         ...
