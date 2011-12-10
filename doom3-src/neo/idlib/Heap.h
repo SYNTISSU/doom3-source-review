@@ -130,11 +130,11 @@
 //  Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ ALIGN_SIZE
-//     ~ bytes: Stuff stuff stuff. Stuff stuff.
+//     ~~ bytes: Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ SMALL_ALIGN
-//     ~ bytes: Stuff stuff stuff. Stuff stuff.
+//     ~~ bytes: Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ MEDIUM_SMALLEST_SIZE
@@ -193,52 +193,52 @@
 //  PRIVATE FUNCTIONS
 //
 //  ~~ AllocatePage
-//     ~ RETURN page_s*  Stuff stuff stuff. Stuff stuff.
-//     ~ dword bytes     Stuff stuff stuff. Stuff stuff.
+//     ~~ RETURN page_s*  Stuff stuff stuff. Stuff stuff.
+//     ~~ dword bytes     Stuff stuff stuff. Stuff stuff.
 //     Allocate page from the OS.
 //
 //  ~~ SmallAllocate
-//     ~ RETURN void*  Stuff stuff stuff. Stuff stuff.
-//     ~ dword bytes   Stuff stuff stuff. Stuff stuff.
+//     ~~ RETURN void*  Stuff stuff stuff. Stuff stuff.
+//     ~~ dword bytes   Stuff stuff stuff. Stuff stuff.
 //     Allocate memory (1-255 bytes) from small heap manager
 //
 //  ~~ MediumAllocate
-//     ~ RETURN void*  Stuff stuff stuff. Stuff stuff.
-//     ~ dword bytes
+//     ~~ RETURN void*  Stuff stuff stuff. Stuff stuff.
+//     ~~ dword bytes
 //     Allocate memory (256-32768 bytes) from medium heap manager.
 //
 //  ~~ MediumAllocateFromPage
-//     ~ RETURN void*       Stuff stuff stuff. Stuff stuff.
-//     ~ idHeap::page_s *p  Stuff stuff stuff. Stuff stuff.
-//     ~ dword sizeNeeded   Stuff stuff stuff. Stuff stuff.
+//     ~~ RETURN void*       Stuff stuff stuff. Stuff stuff.
+//     ~~ idHeap::page_s *p  Stuff stuff stuff. Stuff stuff.
+//     ~~ dword sizeNeeded   Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ LargeAllocate
-//     ~ RETURN void*  Stuff stuff stuff. Stuff stuff.
-//     ~ dword bytes   Stuff stuff stuff. Stuff stuff.
+//     ~~ RETURN void*  Stuff stuff stuff. Stuff stuff.
+//     ~~ dword bytes   Stuff stuff stuff. Stuff stuff.
 //     Allocate large block from OS directly
 //
 //  ~~ SmallFree
-//     ~ void *ptr: Stuff stuff stuff. Stuff stuff.
-//     ~ Free memory allocated by small heap manager
+//     ~~ void *ptr: Stuff stuff stuff. Stuff stuff.
+//     ~~ Free memory allocated by small heap manager
 //
 //  ~~ MediumFree
-//     ~ void *ptr: Stuff stuff stuff. Stuff stuff.
+//     ~~ void *ptr: Stuff stuff stuff. Stuff stuff.
 //     Free memory allocated by medium heap manager.
 //
 //  ~~ LargeFree
-//     ~ void *ptr: Stuff stuff stuff. Stuff stuff.
+//     ~~ void *ptr: Stuff stuff stuff. Stuff stuff.
 //     Free memory allocated by large heap manager.
 //
 //  ~~ ReleaseSwappedPages
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ FreePage
-//     ~ idHeap::page_s *p: Stuff stuff stuff. Stuff stuff.
+//     ~~ idHeap::page_s *p: Stuff stuff stuff. Stuff stuff.
 //     Free an OS allocated page.
 //
 //  ~~ FreePageReal
-//     ~ idHeap::page_s *p  Stuff stuff stuff. Stuff stuff.
+//     ~~ idHeap::page_s *p  Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //
@@ -246,33 +246,33 @@
 //  PRIVATE TYPES
 //
 //  ~~ ENUMERATION: N/A
-//     ~ ALIGN  Stuff stuff stuff. Stuff stuff.
+//     ~~ ALIGN  Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ ENUMERATION: N/A
-//     ~ INVALID_ALLOC  Stuff stuff stuff. Stuff stuff.
-//     ~ SMALL_ALLOC    Stuff stuff stuff. Stuff stuff.
-//     ~ MEDIUM_ALLOC   Stuff stuff stuff. Stuff stuff.
-//     ~ LARGE_ALLOC    Stuff stuff stuff. Stuff stuff.
+//     ~~ INVALID_ALLOC  Stuff stuff stuff. Stuff stuff.
+//     ~~ SMALL_ALLOC    Stuff stuff stuff. Stuff stuff.
+//     ~~ MEDIUM_ALLOC   Stuff stuff stuff. Stuff stuff.
+//     ~~ LARGE_ALLOC    Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ STRUCTURE: page_s
-//     ~ void* data         Data pointer to allocated memory.
-//     ~ dword dataSize     Number of bytes of memory 'data' points to.
-//     ~ page_s* next       Next free page in same page manager.
-//     ~ page_s* prev       Used only when allocated.
-//     ~ dword largestFree  This data used by the medium-size heap manager.
-//     ~ void* firstFree    Pointer to first free entry.
+//     ~~ void* data         Data pointer to allocated memory.
+//     ~~ dword dataSize     Number of bytes of memory 'data' points to.
+//     ~~ page_s* next       Next free page in same page manager.
+//     ~~ page_s* prev       Used only when allocated.
+//     ~~ dword largestFree  This data used by the medium-size heap manager.
+//     ~~ void* firstFree    Pointer to first free entry.
 //     Allocation page
 //
 //  ~~ STRUCTURE: mediumHeapEntry_s
-//     ~ void* data                   Allocation page.
-//     ~ dword dataSize               Size of block.
-//     ~ mediumHeapEntry_s* prev      Previous block.
-//     ~ mediumHeapEntry_s* next      Next block.
-//     ~ mediumHeapEntry_s* prevFree  Previous free block.
-//     ~ mediumHeapEntry_s* nextFree  Next free block.
-//     ~ dword freeBlock              Non-zero if free block.
+//     ~~ void* data                   Allocation page.
+//     ~~ dword dataSize               Size of block.
+//     ~~ mediumHeapEntry_s* prev      Previous block.
+//     ~~ mediumHeapEntry_s* next      Next block.
+//     ~~ mediumHeapEntry_s* prevFree  Previous free block.
+//     ~~ mediumHeapEntry_s* nextFree  Next free block.
+//     ~~ dword freeBlock              Non-zero if free block.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //
