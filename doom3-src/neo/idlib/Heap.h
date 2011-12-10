@@ -88,18 +88,19 @@
 //
 //  MACROS: idHeap Header Sizes
 //
-//  The header sizes define what the size of the header before the data will be. In order for the headers to be accessed from a pointer to their data (their
-//  data goes after the header) there is a one byte padding that holds a kind of identifier for what size and kind the header is. These identifiers are
-//  defined as a private enumerated type within idHeap. See SMALL_ALLOC, MEDIUM_ALLOC, and LARGE_ALLOC for more information on these one byte identifiers.
+//  The header sizes define what the size of the header before the data will be. In order for the headers to be accessed from a pointer to their data there
+//  is a one byte padding that holds a kind of identifier for what size and kind the header is. These identifiers are defined as a private enumerated type
+//  within idHeap. See SMALL_ALLOC, MEDIUM_ALLOC, and LARGE_ALLOC for more information on these one byte identifiers.
 //
 //  ~~ SMALL_HEADER_SIZE
-//     Stuff stuff stuff. Stuff stuff.
+//     The header size of a small allocation.
 //
 //  ~~ MEDIUM_HEADER_SIZE
-//     Stuff stuff stuff. Stuff stuff.
+//     The header size of a medium allocation. A medium header is defined as a linked list. See the idHeap private structure mediumHeapEntry_s for
+//     information on the header itself.
 //
 //  ~~ LARGE_HEADER_SIZE
-//     Stuff stuff stuff. Stuff stuff.
+//     The header size of a large allocation.
 //
 //  ~~ Example usage
 //     //Move back one byte from the void* to the data and switch based off of the identifier of the header
