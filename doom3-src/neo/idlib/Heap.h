@@ -45,7 +45,7 @@
 //  Memory Management
 //
 //  This is a replacement for the compiler heap code (i.e. "C" malloc() and free() calls). On average 2.5-3.0 times faster than MSVC malloc()/free(). Worst 
-//  case performance is 1.65 times faster and best case > 70 times.
+//  case performance is 1.65 times faster and best case > 70 times. MORE DESCRIPTION ABOUT THE DATA TYPES, ALGORITHMS, AND USAGE NEED TO BE HERE.
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -58,7 +58,9 @@
 //
 //  MACRO: USE_LIBC_MALLOC
 //
-//  Stuff stuff stuff. Stuff stuff.
+//  Forces standard C functions like 'malloc' and 'free' to be used over custom allocation functions. It is referenced in 'idHeap::Allocate', 'idHeap::Free'
+//  and 'idHeap::Msize' to force the functions 'malloc', 'free', and '_msize' respecfully.The purpose of this macro is probably debugging or preformance
+//  testing which would explains why it is initialized to 0.
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -72,7 +74,7 @@
 //
 //  MACRO: CRASH_ON_STATIC_ALLOCATION
 //
-//  Stuff stuff stuff. Stuff stuff.
+//  There are no references to this macro anywhere in the source code, so there is no way to be sure of its intended function.
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -86,7 +88,9 @@
 //
 //  MACROS: idHeap Header Sizes
 //
-//  Stuff stuff stuff. Stuff stuff.
+//  The header sizes define what the size of the header before the data will be. In order for the headers to be accessed from a pointer to their data (their
+//  data goes after the header) there is a one byte padding that holds a kind of identifier for what size and kind the header is. These identifiers are
+//  defined as a private enumerated type within idHeap. See SMALL_ALLOC, MEDIUM_ALLOC, and LARGE_ALLOC for more information on these identifiers.
 //
 //  ~~ SMALL_HEADER_SIZE
 //     Stuff stuff stuff. Stuff stuff.
@@ -97,11 +101,25 @@
 //  ~~ LARGE_HEADER_SIZE
 //     Stuff stuff stuff. Stuff stuff.
 //
+//  ~~ Example usage
+//     //Move back one byte from the void* to the data and switch based off of the identifier of the header
+//     switch(((byte*)(Void_Pointer_To_Data))[-1]){
+//       case SMALL_ALLOC: {
+//         ...
+//       }
+//       case MEDIUM_ALLOC: {
+//         ...
+//       }
+//       case LARGE_ALLOC: {
+//         ...
+//       }
+//     }
+//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define SMALL_HEADER_SIZE   ((int)(sizeof(byte) + sizeof(byte)))
-#define MEDIUM_HEADER_SIZE  ((int)(sizeof(mediumHeapEntry_s ) + sizeof(byte)))
-#define LARGE_HEADER_SIZE   ((int)(sizeof(dword *) + sizeof(byte)))
+#define SMALL_HEADER_SIZE   ((int)(sizeof(byte)              + sizeof(byte)))
+#define MEDIUM_HEADER_SIZE  ((int)(sizeof(mediumHeapEntry_s) + sizeof(byte)))
+#define LARGE_HEADER_SIZE   ((int)(sizeof(dword*)            + sizeof(byte)))
 
 
 
@@ -228,13 +246,14 @@
 //  PRIVATE TYPES
 //
 //  ~~ ENUMERATION: N/A
-//     ~ ALIGN = 8:  Stuff stuff stuff. Stuff stuff.
+//     ~ ALIGN  Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ ENUMERATION: N/A
 //     ~ INVALID_ALLOC  Stuff stuff stuff. Stuff stuff.
 //     ~ SMALL_ALLOC    Stuff stuff stuff. Stuff stuff.
 //     ~ MEDIUM_ALLOC   Stuff stuff stuff. Stuff stuff.
+//     ~ LARGE_ALLOC    Stuff stuff stuff. Stuff stuff.
 //     Stuff stuff stuff. Stuff stuff.
 //
 //  ~~ STRUCTURE: page_s
